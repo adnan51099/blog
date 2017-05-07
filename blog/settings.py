@@ -84,8 +84,14 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'adnan56$blog',
+        'USER': 'adnan56',
+        'PASSWORD': 'department@1a',
+        'HOST': 'adnan56.mysql.pythonanywhere-services.com',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     },
 }
 
@@ -114,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
