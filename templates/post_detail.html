@@ -16,7 +16,7 @@
 	  <source src="{{ instance.video.url }}" type="video/mp4">
 	</video>
 	{% endif %}
-	<h1>{{ title }} <small>{% if instance.draft %} <span style="color: red;">Draft</span>{% endif %} {{ instance.publish }}</small></h1>
+	<h1>{{ title }} <small>{% if instance.draft %} <span style="color: red;">Draft</span>{% endif %} {{ instance.timestamp }} </small></h1>
 	
 	<!-- getting username -->
 	{% if instance.user.get_full_name %}
