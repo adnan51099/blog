@@ -49,18 +49,31 @@ def post_detail(request, slug=None):
 		c_type = form.cleaned_data.get("content_type")
 		content_type = ContentType.objects.get(model=c_type)
 		obj_id = form.cleaned_data.get("object_id")
+		parent_obj = None
+		try:
+			parent_id = int(request.POST.get("parent_id"))
+		except:
+			parent_id = None
+
+		if parent_id:
+			parent_qs = Comment.objects.filter(id=parent_id)
+			if parent_qs.exists() and parent_qs.count()==1:
+				parent_obj = parent_qs.first()
 		content_data = form.cleaned_data.get("content")
 		new_comment, created = Comment.objects.get_or_create(
 										user = request.user,
 										content_type = content_type,
 										object_id = obj_id,
-										content = content_data
+										content = content_data,
+										parent = parent_obj,
 			)
+		return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
 
 	#content_type = ContentType.objects.get_for_model(Post)
 	#obj_id = instance.id
 	comments = instance.comments#Comment.objects.filter_by_instance(instance)
 	comments_count = comments.count()
+	#replies = comments.parent
 
 	context = {'title': instance.title, 'instance':instance, 'comments':comments, 'comments_count':comments_count, 'comment_form':form}#'share_string':share_string
 	return render(request, "post_detail.html", context)
